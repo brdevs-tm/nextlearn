@@ -1,0 +1,38 @@
+/* Dark mode uchun global uslub */
+body.dark {
+  background-color: #1f2937; /* Dark mode fon rangi */
+  color: #e5e7eb; /* Oq rangdagi matn */
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+/* Light mode va dark mode o'rtasida farq qilish uchun Tailwind CSS utility klaslarini ishlating */
+.bg-gray-800 {
+  background-color: #2d3748;
+}
+
+.bg-gray-700 {
+  background-color: #4a5568;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-black {
+  color: #000;
+}
+
+.text-gray-400 {
+  color: #cbd5e0;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.hover\:bg-gray-200:hover {
+  background-color: #edf2f7;
+}

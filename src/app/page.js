@@ -1,12 +1,12 @@
-import Navbar from "@/components/Navbar/Navbar";
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 
 const page = () => {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+  useEffect(() => {
+    document.title = "NextLearn ";
+  }, []);
+  return <div></div>;
 };
 
 export default page;
