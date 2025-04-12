@@ -1,0 +1,32 @@
+.footer-section {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobil breakpointlarda sozlash */
+@media (max-width: 639px) {
+  footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

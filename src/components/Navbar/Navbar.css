@@ -1,38 +1,46 @@
-/* Dark mode uchun global uslub */
-body.dark {
-  background-color: #1f2937; /* Dark mode fon rangi */
-  color: #e5e7eb; /* Oq rangdagi matn */
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
 }
 
-button {
-  transition: all 0.3s ease;
+@keyframes bounce-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-4px) scale(1.2);
+    opacity: 0.7;
+  }
 }
 
-/* Light mode va dark mode o'rtasida farq qilish uchun Tailwind CSS utility klaslarini ishlating */
-.bg-gray-800 {
-  background-color: #2d3748;
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
 }
 
-.bg-gray-700 {
-  background-color: #4a5568;
+.animate-bounce-pulse {
+  animation: bounce-pulse 2s ease-in-out infinite;
 }
 
-.text-white {
-  color: #fff;
+/* Mobil breakpointlarda sozlash */
+@media (max-width: 639px) {
+  nav {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
-.text-black {
-  color: #000;
-}
-
-.text-gray-400 {
-  color: #cbd5e0;
-}
-
-.bg-white {
-  background-color: #fff;
-}
-
-.hover\:bg-gray-200:hover {
-  background-color: #edf2f7;
+@media (min-width: 640px) and (max-width: 1023px) {
+  nav {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
