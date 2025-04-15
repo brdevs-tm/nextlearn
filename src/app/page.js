@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"; // Added for image optimization
 import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Swiper from "swiper";
@@ -10,6 +11,31 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./Home.css";
+
+// Reusable AnimatedSection component to handle scroll animations
+function AnimatedSection({ children, delay = 0 }) {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [controls, inView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay } },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function Home() {
   // Swiper refs
@@ -82,17 +108,6 @@ export default function Home() {
       }
     };
   }, []);
-
-  // Scroll animation hook
-  const useScrollAnimation = () => {
-    const controls = useAnimation();
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: "-100px" });
-    useEffect(() => {
-      if (inView) controls.start("visible");
-    }, [controls, inView]);
-    return [ref, controls];
-  };
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
@@ -192,24 +207,9 @@ export default function Home() {
                 value: "4.9",
                 label: "O‘rtacha reyting",
               },
-            ].map((stat, index) => {
-              const [ref, controls] = useScrollAnimation();
-              return (
-                <motion.div
-                  key={stat.label}
-                  ref={ref}
-                  initial="hidden"
-                  animate={controls}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.6, delay: index * 0.2 },
-                    },
-                  }}
-                  className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                >
+            ].map((stat, index) => (
+              <AnimatedSection key={stat.label} delay={index * 0.2}>
+                <div className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
                   <motion.svg
                     className="w-12 h-12 text-indigo-600 mb-4"
                     fill="none"
@@ -231,9 +231,9 @@ export default function Home() {
                   <p className="text-gray-600 dark:text-gray-400">
                     {stat.label}
                   </p>
-                </motion.div>
-              );
-            })}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -271,24 +271,9 @@ export default function Home() {
                 title: "Ro‘yxatdan o‘tish",
                 desc: "Tez va oson ro‘yxatdan o‘ting va o‘qishni boshlang.",
               },
-            ].map((step, index) => {
-              const [ref, controls] = useScrollAnimation();
-              return (
-                <motion.div
-                  key={step.title}
-                  ref={ref}
-                  initial="hidden"
-                  animate={controls}
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.8 },
-                    visible: {
-                      opacity: 1,
-                      scale: 1,
-                      transition: { duration: 0.6, delay: index * 0.2 },
-                    },
-                  }}
-                  className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                >
+            ].map((step, index) => (
+              <AnimatedSection key={step.title} delay={index * 0.2}>
+                <div className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
                   <motion.svg
                     className="w-12 h-12 text-indigo-600 mb-4"
                     fill="none"
@@ -310,9 +295,9 @@ export default function Home() {
                   <p className="text-gray-600 dark:text-gray-400">
                     {step.desc}
                   </p>
-                </motion.div>
-              );
-            })}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -336,7 +321,7 @@ export default function Home() {
                     name: "English Hub",
                     location: "Toshkent, Chilanzar",
                     courses: 15,
-                    img: "/images/center1.jpg",
+                    img: "/images/image.jpg",
                     link: "/centers/english-hub",
                     rating: 4.8,
                   },
@@ -344,7 +329,7 @@ export default function Home() {
                     name: "Math Academy",
                     location: "Samarqand, Registon",
                     courses: 10,
-                    img: "/images/center2.jpg",
+                    img: "/images/image.jpg",
                     link: "/centers/math-academy",
                     rating: 4.7,
                   },
@@ -352,7 +337,7 @@ export default function Home() {
                     name: "CodeMaster",
                     location: "Buxoro, Ark",
                     courses: 8,
-                    img: "/images/center3.jpg",
+                    img: "/images/image.jpg",
                     link: "/centers/codemaster",
                     rating: 4.9,
                   },
@@ -360,7 +345,7 @@ export default function Home() {
                     name: "CodeMaster",
                     location: "Buxoro, Ark",
                     courses: 8,
-                    img: "/images/center3.jpg",
+                    img: "/images/image.jpg",
                     link: "/centers/codemaster",
                     rating: 4.9,
                   },
@@ -368,7 +353,7 @@ export default function Home() {
                     name: "CodeMaster",
                     location: "Buxoro, Ark",
                     courses: 8,
-                    img: "/images/center3.jpg",
+                    img: "/images/image.jpg",
                     link: "/centers/codemaster",
                     rating: 4.9,
                   },
@@ -385,9 +370,11 @@ export default function Home() {
                       }}
                     >
                       <div className="relative">
-                        <img
+                        <Image
                           src={center.img}
                           alt={center.name}
+                          width={400}
+                          height={192}
                           className="w-full h-48 object-cover rounded-lg mb-4 transition-transform duration-500 hover:scale-105"
                           loading="lazy"
                         />
@@ -523,27 +510,14 @@ export default function Home() {
                 link: "/courses/math-olympiad",
                 img: "/images/course3.jpg",
               },
-            ].map((course, index) => {
-              const [ref, controls] = useScrollAnimation();
-              return (
-                <motion.div
-                  key={course.name}
-                  ref={ref}
-                  initial="hidden"
-                  animate={controls}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.6, delay: index * 0.2 },
-                    },
-                  }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300"
-                >
-                  <img
+            ].map((course, index) => (
+              <AnimatedSection key={course.name} delay={index * 0.2}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
+                  <Image
                     src={course.img}
                     alt={course.name}
+                    width={400}
+                    height={160}
                     className="w-full h-40 object-cover rounded-lg mb-4 transition-transform duration-500 hover:scale-105"
                     loading="lazy"
                   />
@@ -568,9 +542,9 @@ export default function Home() {
                       Batafsil
                     </motion.button>
                   </Link>
-                </motion.div>
-              );
-            })}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -623,9 +597,11 @@ export default function Home() {
                         transition: { type: "spring", stiffness: 200 },
                       }}
                     >
-                      <img
+                      <Image
                         src={testimonial.img}
                         alt={testimonial.name}
+                        width={64}
+                        height={64}
                         className="w-16 h-16 rounded-full object-cover mb-4 border-2 border-indigo-600"
                         loading="lazy"
                       />
@@ -720,24 +696,9 @@ export default function Home() {
                 title: "Geo-lokatsiya qidiruvi",
                 desc: "Sizga eng yaqin markazlarni osongina toping.",
               },
-            ].map((feature, index) => {
-              const [ref, controls] = useScrollAnimation();
-              return (
-                <motion.div
-                  key={feature.title}
-                  ref={ref}
-                  initial="hidden"
-                  animate={controls}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.6, delay: index * 0.2 },
-                    },
-                  }}
-                  className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                >
+            ].map((feature, index) => (
+              <AnimatedSection key={feature.title} delay={index * 0.2}>
+                <div className="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
                   <motion.svg
                     className="w-12 h-12 text-indigo-600 mb-4"
                     fill="none"
@@ -759,9 +720,9 @@ export default function Home() {
                   <p className="text-gray-600 dark:text-gray-400 text-center">
                     {feature.desc}
                   </p>
-                </motion.div>
-              );
-            })}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -802,27 +763,14 @@ export default function Home() {
                 img: "/images/news3.jpg",
                 link: "/blog/math-olympiad",
               },
-            ].map((news, index) => {
-              const [ref, controls] = useScrollAnimation();
-              return (
-                <motion.div
-                  key={news.title}
-                  ref={ref}
-                  initial="hidden"
-                  animate={controls}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.6, delay: index * 0.2 },
-                    },
-                  }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
-                >
-                  <img
+            ].map((news, index) => (
+              <AnimatedSection key={news.title} delay={index * 0.2}>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                  <Image
                     src={news.img}
                     alt={news.title}
+                    width={400}
+                    height={192}
                     className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
                     loading="lazy"
                   />
@@ -849,9 +797,9 @@ export default function Home() {
                       </motion.button>
                     </Link>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
           <motion.div
             className="text-center mt-12"

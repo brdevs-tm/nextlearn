@@ -1,52 +1,44 @@
-body {
-  scroll-behavior: smooth;
-}
-
-.bg-gradient-to-b,
-.bg-gradient-to-r {
-  transition: background 0.5s ease;
-}
-
+/* app/Home.css */
 .swiper {
   width: 100%;
-  height: 100%;
+  padding-bottom: 2rem;
 }
 
 .swiper-slide {
   display: flex;
   justify-content: center;
-  align-items: center;
-  opacity: 0.7;
-  transition: opacity 0.5s ease;
-}
-
-.swiper-slide-active {
-  opacity: 1;
-}
-
-.swiper-pagination-bullet {
-  background: #4f46e5;
-  opacity: 0.5;
-  width: 10px;
-  height: 10px;
-}
-
-.swiper-pagination-bullet-active {
-  opacity: 1;
-  background: #4f46e5;
 }
 
 .centers-swiper-button-prev,
 .centers-swiper-button-next,
 .testimonials-swiper-button-prev,
 .testimonials-swiper-button-next {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
-button,
-img,
-div {
-  transition: all 0.3s ease;
+@media (min-width: 768px) {
+  .centers-swiper-button-prev,
+  .centers-swiper-button-next,
+  .testimonials-swiper-button-prev,
+  .testimonials-swiper-button-next {
+    display: block;
+  }
+}
+
+.centers-swiper-pagination,
+.testimonials-swiper-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.centers-swiper-pagination .swiper-pagination-bullet,
+.testimonials-swiper-pagination .swiper-pagination-bullet {
+  background: #4f46e5;
+  opacity: 0.5;
+}
+
+.centers-swiper-pagination .swiper-pagination-bullet-active,
+.testimonials-swiper-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
 }
