@@ -1,0 +1,37 @@
+.filter-bar {
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animate-glow {
+  background: linear-gradient(90deg, #ffffff, #f9fafb, #ffffff);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.dark .animate-glow {
+  background: linear-gradient(90deg, #1f2937, #111827, #1f2937);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+}
+
+input:focus,
+select:focus {
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+}
+
+.dark input:focus,
+.dark select:focus {
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+button:hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .filter-bar {
+    padding: 1rem;
+  }
+
+  .filter-bar.fixed {
+    border-radius: 0 0 1rem 1rem;
+  }
+}

@@ -31,19 +31,19 @@ export default function Footer() {
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 200 }}
         >
-          <h2 className="text-indigo-400 text-xl sm:text-2xl font-bold tracking-wide">
+          <h2 className="text-indigo-400 dark:text-indigo-500 text-xl sm:text-2xl font-bold tracking-wide">
             <Link href="/">Logo</Link>
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xs">
+          <p className="text-gray-400 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-xs">
             NextLearn — o‘quv markazlarini topish va boshqarish uchun yagona
             platforma. Biz bilan ta’limni soddalashtiring!
           </p>
           <Link href="/partner">
             <motion.button
-              className="bg-indigo-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-md text-sm sm:text-base hover:bg-indigo-700 transition-colors duration-300"
+              className="bg-indigo-600 dark:bg-indigo-500 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-md text-sm sm:text-base hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-300"
               whileHover={{
                 scale: 1.05,
-                boxShadow: "0 0 15px rgba(79, 70, 229, 0.5)",
+                boxShadow: "0 0 15px rgba(99, 102, 241, 0.5)",
               }}
               whileTap={{ scale: 0.95 }}
             >
@@ -54,7 +54,7 @@ export default function Footer() {
 
         {/* Tez linklar */}
         <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-3 sm:mb-4">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-50 dark:text-gray-50 mb-3 sm:mb-4">
             Tez linklar
           </h3>
           <ul className="space-y-2 sm:space-y-3">
@@ -68,7 +68,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-gray-400 hover:text-indigo-400 transition-colors duration-200 text-sm sm:text-base relative group"
+                  className="text-gray-400 dark:text-gray-300 hover:text-indigo-400 dark:hover:text-indigo-500 transition-colors duration-200 text-sm sm:text-base relative group"
                 >
                   <motion.span
                     className="group-hover:underline underline-offset-4"
@@ -85,13 +85,13 @@ export default function Footer() {
 
         {/* Aloqa ma’lumotlari */}
         <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-3 sm:mb-4">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-50 dark:text-gray-50 mb-3 sm:mb-4">
             Biz bilan bog‘laning
           </h3>
-          <ul className="space-y-2 sm:space-y-3 text-gray-400 text-sm sm:text-base">
+          <ul className="space-y-2 sm:space-y-3 text-gray-400 dark:text-gray-300 text-sm sm:text-base">
             <li className="flex items-center">
               <svg
-                className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-indigo-400"
+                className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-indigo-400 dark:text-indigo-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center">
               <svg
-                className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-indigo-400"
+                className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-indigo-400 dark:text-indigo-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -141,7 +141,7 @@ export default function Footer() {
               <motion.a
                 key={social.href}
                 href={social.href}
-                className="text-gray-400 hover:text-indigo-400 transition-colors duration-200"
+                className="text-gray-400 dark:text-gray-300 hover:text-indigo-400 dark:hover:text-indigo-500 transition-colors duration-200"
                 whileHover={{ scale: 1.2, rotate: 10 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -159,10 +159,10 @@ export default function Footer() {
 
         {/* Qo‘shimcha */}
         <div>
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-3 sm:mb-4">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-50 dark:text-gray-50 mb-3 sm:mb-4">
             Foydali
           </h3>
-          <ul className="space-y-2 sm:space-y-3 text-gray-400 text-sm sm:text-base">
+          <ul className="space-y-2 sm:space-y-3 text-gray-400 dark:text-gray-300 text-sm sm:text-base">
             {[
               { href: "/faq", label: "Tez-tez so‘raladigan savollar" },
               { href: "/terms", label: "Foydalanish shartlari" },
@@ -171,7 +171,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="hover:text-indigo-400 transition-colors duration-200"
+                  className="hover:text-indigo-400 dark:hover:text-indigo-500 transition-colors duration-200"
                 >
                   <motion.span
                     whileHover={{ x: 5 }}
@@ -188,7 +188,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <motion.div
-        className="container mx-auto mt-8 sm:mt-12 border-t border-gray-700 pt-4 sm:pt-6 text-center text-gray-400 text-sm"
+        className="container mx-auto mt-8 sm:mt-12 border-t border-gray-700 dark:border-gray-700 pt-4 sm:pt-6 text-center text-gray-400 dark:text-gray-300 text-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}

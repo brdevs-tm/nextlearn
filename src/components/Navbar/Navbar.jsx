@@ -13,13 +13,33 @@ export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const langRef = useRef(null);
 
-  // Dark mode toggle
+  // Initialize dark mode from localStorage
+  useEffect(() => {
+    const savedMode = localStorage.getItem("theme");
+    if (savedMode === "dark") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
+    setIsDarkMode((prev) => {
+      const newMode = !prev;
+      if (newMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+      return newMode;
+    });
   };
 
-  // Til dropdownni tashqariga bosilganda yopish
+  // Close language dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (langRef.current && !langRef.current.contains(event.target)) {
@@ -30,13 +50,13 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Til tanlash
+  // Language selection
   const handleLangSelect = (lang) => {
     setSelectedLang(lang);
     setIsLangOpen(false);
   };
 
-  // Mobil menyu animatsiyasi
+  // Mobile menu animation variants
   const menuVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
@@ -52,14 +72,14 @@ export default function Navbar() {
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <motion.div
-          className="text-indigo-600 dark:text-indigo-400 text-xl sm:text-2xl font-bold tracking-wide"
+          className="text-indigo-600 dark:text-indigo-500 text-xl sm:text-2xl font-bold tracking-wide"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
           <Link href="/">Logo</Link>
         </motion.div>
 
-        {/* Desktop menyusi */}
+        {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
           {[
             { href: "/centers", label: "O‘quv markazlar" },
@@ -71,31 +91,31 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="relative text-gray-800 dark:text-gray-200 font-medium group"
+              className="relative text-gray-600 dark:text-gray-300 font-medium group"
             >
               <motion.span
-                className="relative z-10 px-3 py-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300"
+                className="relative z-10 px-3 py-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-500 transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
                 {item.label}
               </motion.span>
-              <span className="absolute inset-x-0 top-7 h-1 bg-indigo-600 dark:bg-indigo-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
+              <span className="absolute inset-x-0 top-7 h-1 bg-indigo-600 dark:bg-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
             </Link>
           ))}
         </div>
 
-        {/* Foydalanuvchi paneli */}
+        {/* User Controls */}
         <div className="flex items-center space-x-3 sm:space-x-4">
-          {/* Search input */}
+          {/* Search Input */}
           <div className="hidden sm:block relative">
             <input
               type="text"
               placeholder="Qidirish..."
-              className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 rounded-full py-1.5 sm:py-2 px-3 sm:px-4 pl-8 sm:pl-10 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all duration-200 w-32 sm:w-40 lg:w-48"
+              className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 rounded-full py-1.5 sm:py-2 px-3 sm:px-4 pl-8 sm:pl-10 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 transition-all duration-200 w-32 sm:w-40 lg:w-48 border border-gray-200 dark:border-gray-700"
             />
             <svg
-              className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-700 dark:text-gray-300"
+              className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-600 dark:text-gray-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -109,11 +129,11 @@ export default function Navbar() {
             </svg>
           </div>
 
-          {/* Til tanlash */}
+          {/* Language Dropdown */}
           <div className="relative" ref={langRef}>
             <motion.button
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="flex items-center text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+              className="flex items-center text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-500 transition-colors duration-200"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -122,7 +142,7 @@ export default function Navbar() {
             <AnimatePresence>
               {isLangOpen && (
                 <motion.div
-                  className="absolute right-0 mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-md w-28 sm:w-32 py-2 z-50"
+                  className="absolute right-0 mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-md w-28 sm:w-32 py-2 z-50 border border-gray-200 dark:border-gray-700"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -136,7 +156,7 @@ export default function Navbar() {
                     <button
                       key={lang.flag}
                       onClick={() => handleLangSelect(lang.flag)}
-                      className="block w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-800 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-indigo-900 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+                      className="block w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-600 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900 hover:text-indigo-600 dark:hover:text-indigo-500 transition-colors duration-200"
                     >
                       {lang.flag} {lang.label}
                     </button>
@@ -146,12 +166,13 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* Dark mode toggle */}
+          {/* Dark Mode Toggle */}
           <motion.button
             onClick={toggleDarkMode}
-            className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+            className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-500 transition-colors duration-200"
             whileHover={{ scale: 1.2, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
+            aria-label="Dark mode toggle"
           >
             {isDarkMode ? (
               <svg
@@ -184,28 +205,25 @@ export default function Navbar() {
             )}
           </motion.button>
 
-          {/* Hamkorlik tugmasi */}
+          {/* Partner Button */}
           <Link href="/partner">
             <motion.button
-              className="relative bg-indigo-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-full overflow-hidden group text-sm sm:text-base"
+              className="relative bg-indigo-600 dark:bg-indigo-500 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-full overflow-hidden group text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10">Hamkorlik</span>
-              <span className="absolute inset-0 bg-indigo-500 opacity-30 animate-glow"></span>
+              <span className="absolute inset-0 bg-indigo-500 dark:bg-indigo-400 opacity-30 animate-glow"></span>
               <span className="absolute top-1/2 left-2 w-2 h-2 bg-white rounded-full opacity-50 animate-bounce-pulse"></span>
-              <span className="absolute inset-0 bg-indigo-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"></span>
-              <span className="absolute inset-0 flex items-center justify-center">
-                <span className="w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-300"></span>
-              </span>
+              <span className="absolute inset-0 bg-indigo-700 dark:bg-indigo-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"></span>
             </motion.button>
           </Link>
         </div>
 
-        {/* Mobil menyu tugmasi */}
+        {/* Mobile Menu Button */}
         <motion.button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+          className="lg:hidden text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-500 transition-colors duration-200"
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -229,7 +247,7 @@ export default function Navbar() {
         </motion.button>
       </div>
 
-      {/* Mobil menyu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -250,21 +268,21 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="block text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 text-base sm:text-lg font-medium"
+                  className="block text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-500 transition-colors duration-200 text-base sm:text-lg font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
-              {/* Mobil qidiruv */}
+              {/* Mobile Search */}
               <div className="relative mt-4">
                 <input
                   type="text"
                   placeholder="Qidirish..."
-                  className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 rounded-full py-2 px-4 pl-10 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all duration-200"
+                  className="w-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 rounded-full py-2 px-4 pl-10 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 transition-all duration-200 border border-gray-200 dark:border-gray-700"
                 />
                 <svg
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-700 dark:text-gray-300"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

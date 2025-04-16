@@ -1,4 +1,4 @@
-/* app/Home.css */
+/* Swiper base styles */
 .swiper {
   width: 100%;
   padding-bottom: 2rem;
@@ -9,11 +9,13 @@
   justify-content: center;
 }
 
+/* Navigation buttons */
 .centers-swiper-button-prev,
 .centers-swiper-button-next,
 .testimonials-swiper-button-prev,
 .testimonials-swiper-button-next {
   display: none;
+  transition: color 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -25,6 +27,7 @@
   }
 }
 
+/* Pagination styles */
 .centers-swiper-pagination,
 .testimonials-swiper-pagination {
   display: flex;
@@ -36,9 +39,69 @@
 .testimonials-swiper-pagination .swiper-pagination-bullet {
   background: #4f46e5;
   opacity: 0.5;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
 }
 
 .centers-swiper-pagination .swiper-pagination-bullet-active,
 .testimonials-swiper-pagination .swiper-pagination-bullet-active {
   opacity: 1;
+}
+
+/* Dark mode adjustments */
+.dark .centers-swiper-pagination .swiper-pagination-bullet,
+.dark .testimonials-swiper-pagination .swiper-pagination-bullet {
+  background: #6366f1;
+}
+
+.dark .centers-swiper-button-prev,
+.dark .centers-swiper-button-next,
+.dark .testimonials-swiper-button-prev,
+.dark .testimonials-swiper-button-next {
+  color: #d1d5db;
+}
+
+/* Section transitions */
+section {
+  transition: background-color 0.3s ease;
+}
+
+/* Hero section */
+section[style*="background-image"] {
+  transition: background-color 0.3s ease;
+}
+
+section[style*="background-image"] .bg-gradient-to-b {
+  transition: background-color 0.3s ease;
+}
+
+/* Card styles */
+.swiper-slide .bg-white {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .swiper-slide .bg-white {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 639px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }

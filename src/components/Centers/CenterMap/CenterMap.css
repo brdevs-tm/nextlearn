@@ -1,0 +1,63 @@
+/* Yandex Maps custom stillari */
+.custom-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-pin:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.ymaps-2-1-79-balloon__content {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+  padding: 12px !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.dark .ymaps-2-1-79-balloon__content {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+.ymaps-2-1-79-balloon__tail {
+  background: #ffffff !important;
+  border-top: 1px solid #e5e7eb !important;
+  border-left: 1px solid #e5e7eb !important;
+}
+
+.dark .ymaps-2-1-79-balloon__tail {
+  background: #1f2937 !important;
+  border-top: 1px solid #374151 !important;
+  border-left: 1px solid #374151 !important;
+}
+
+@media (max-width: 640px) {
+  .ymaps-2-1-79-controls__control {
+    transform: scale(0.8);
+  }
+}
