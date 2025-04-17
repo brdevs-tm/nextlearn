@@ -1,37 +1,48 @@
 .filter-bar {
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease-out;
+  z-index: 50;
 }
 
-.animate-glow {
-  background: linear-gradient(90deg, #ffffff, #f9fafb, #ffffff);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+.filter-bar.fixed {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
-.dark .animate-glow {
-  background: linear-gradient(90deg, #1f2937, #111827, #1f2937);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+.dark .filter-bar.fixed {
+  background-color: rgba(31, 41, 55, 0.95);
 }
 
-input:focus,
-select:focus {
-  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+.filter-bar .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.dark input:focus,
-.dark select:focus {
-  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+.filter-bar input,
+.filter-bar select,
+.filter-bar button {
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.filter-bar input:focus,
+.filter-bar select:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.filter-bar button:hover {
+  transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {
-  .filter-bar {
-    padding: 1rem;
+  .filter-bar .container {
+    padding: 0.5rem;
   }
 
-  .filter-bar.fixed {
-    border-radius: 0 0 1rem 1rem;
+  .filter-bar input,
+  .filter-bar select,
+  .filter-bar button {
+    font-size: 0.9rem;
   }
 }

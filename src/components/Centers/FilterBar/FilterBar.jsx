@@ -117,11 +117,13 @@ export default function FilterBar({
   return (
     <motion.div
       className={`filter-bar bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-4 px-4 sm:px-6 transition-all duration-300 ${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 shadow-lg animate-glow" : ""
+        isSticky
+          ? "fixed top-0 left-0 right-0 z-50 shadow-lg bg-opacity-95 dark:bg-opacity-95"
+          : "relative"
       }`}
-      initial={{ y: -100 }}
+      initial={{ y: isSticky ? 0 : -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       role="region"
       aria-label="Filtrlash paneli"
     >
@@ -133,7 +135,7 @@ export default function FilterBar({
           </h2>
           <motion.button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="p-2 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white"
+            className="p-2 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label={
@@ -168,7 +170,7 @@ export default function FilterBar({
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               {/* Qidiruv inputi */}
               <div className="relative flex-1 min-w-[200px]">
@@ -177,12 +179,12 @@ export default function FilterBar({
                   placeholder="Markaz yoki kurs qidirish..."
                   defaultValue={filters.search}
                   onChange={(e) => debouncedSearch(e.target.value)}
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 rounded-full py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md"
+                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-full py-3 px-4 pl-12 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-sm"
                   aria-label="O‘quv markazlarni qidirish"
                   tabIndex={0}
                 />
                 <svg
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-300 animate-pulse"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -205,7 +207,7 @@ export default function FilterBar({
                   onChange={(e) =>
                     handleFilterChange("location", e.target.value)
                   }
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full py-3 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 appearance-none"
+                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-full py-3 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 appearance-none"
                   aria-label="Hududni tanlash"
                   tabIndex={0}
                 >
@@ -217,7 +219,7 @@ export default function FilterBar({
                   <option value="Andijon">Andijon</option>
                 </select>
                 <svg
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -237,7 +239,7 @@ export default function FilterBar({
                 className="bg-green-500 dark:bg-green-400 text-white font-semibold py-3 px-4 rounded-full hover:bg-green-600 dark:hover:bg-green-500 transition-all duration-300 flex items-center gap-2 min-w-[120px]"
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 15px rgba(16, 185, 129, 0.5)",
+                  boxShadow: "0 0 10px rgba(16, 185, 129, 0.4)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Mening joylashuvimni aniqlash"
@@ -256,20 +258,21 @@ export default function FilterBar({
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                   />
                 </svg>
-                <span className="hidden sm:inline">Meni top</span>
+                <span className="hidden sm:inline">Joylashuv</span>
+                <span className="sm:hidden">Topish</span>
               </motion.button>
 
               {/* Kurs turlari collapsible paneli */}
               <div className="relative min-w-[160px]">
                 <motion.button
                   onClick={() => setIsFilterOpen((prev) => !prev)}
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 font-semibold py-3 px-4 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center gap-2"
+                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-semibold py-3 px-4 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center gap-2 justify-between"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Kurs turlarini tanlash"
                   tabIndex={0}
                 >
-                  Kurs turlari
+                  <span>Kurs turlari</span>
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -302,7 +305,7 @@ export default function FilterBar({
                       ].map((type) => (
                         <label
                           key={type}
-                          className="flex items-center gap-2 py-2 px-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+                          className="flex items-center gap-2 py-2 px-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 cursor-pointer"
                           tabIndex={0}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") {
@@ -339,7 +342,7 @@ export default function FilterBar({
                               </svg>
                             )}
                           </span>
-                          <span className="text-gray-600 dark:text-gray-300">
+                          <span className="text-gray-900 dark:text-gray-100">
                             {type}
                           </span>
                         </label>
@@ -353,10 +356,10 @@ export default function FilterBar({
               <div className="min-w-[200px] sm:min-w-[240px]">
                 <div className="px-4 py-2">
                   <label
-                    className="text-gray-600 dark:text-gray-300 text-sm font-semibold"
+                    className="text-gray-900 dark:text-gray-100 text-sm font-semibold block mb-2"
                     htmlFor="price-range"
                   >
-                    Narx diapazoni: ${priceRange[0]} - ${priceRange[1]}
+                    Narx: ${priceRange[0]} - ${priceRange[1]}
                   </label>
                   <Range
                     step={10}
@@ -369,7 +372,7 @@ export default function FilterBar({
                     renderTrack={({ props, children }) => (
                       <div
                         {...props}
-                        className="h-1 bg-gray-ibb200 dark:bg-gray-700 rounded-full mt-2"
+                        className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-2"
                         style={{ ...props.style }}
                       >
                         <div
@@ -385,11 +388,11 @@ export default function FilterBar({
                       </div>
                     )}
                     renderThumb={({ props, index }) => {
-                      const { key, ...restProps } = props; // key ni olib tashlash
+                      const { key, ...restProps } = props;
                       return (
                         <div
                           {...restProps}
-                          className="w-4 h-4 bg-indigo-600 dark:bg-indigo-500 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500"
+                          className="w-5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 shadow-sm"
                           aria-label={`Narx diapazoni ${
                             index === 0 ? "boshlang‘ich" : "oxirgi"
                           } qiymat`}
@@ -435,7 +438,7 @@ export default function FilterBar({
                 <select
                   value={filters.sortBy}
                   onChange={(e) => handleFilterChange("sortBy", e.target.value)}
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full py-3 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 appearance-none"
+                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-full py-3 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-indigo-500 border border-gray-200 dark:border-gray-700 transition-all duration-200 appearance-none"
                   aria-label="Tartiblash usulini tanlash"
                   tabIndex={0}
                 >
@@ -444,7 +447,7 @@ export default function FilterBar({
                   <option value="price">Narx bo‘yicha</option>
                 </select>
                 <svg
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-600 dark:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -462,7 +465,10 @@ export default function FilterBar({
               <motion.button
                 onClick={clearFilters}
                 className="bg-red-500 dark:bg-red-400 text-white font-semibold py-3 px-4 rounded-full hover:bg-red-600 dark:hover:bg-red-500 transition-all duration-300 flex items-center gap-2 min-w-[120px]"
-                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 10px rgba(239, 68, 68, 0.4)",
+                }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Barcha filtrlarni tozalash"
                 tabIndex={0}
@@ -481,6 +487,7 @@ export default function FilterBar({
                   />
                 </svg>
                 <span className="hidden sm:inline">Tozalash</span>
+                <span className="sm:hidden">O‘chirish</span>
               </motion.button>
 
               {/* Xarita/Ro‘yxat toggle */}
@@ -495,12 +502,12 @@ export default function FilterBar({
                 }}
                 className={`flex items-center gap-2 font-semibold py-3 px-4 rounded-full transition-all duration-300 min-w-[120px] ${
                   isMapView
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white"
-                    : "bg-gradient-to-r from-green-500 to-teal-500 dark:from-green-400 dark:to-teal-400 text-white"
+                    ? "bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600"
+                    : "bg-green-500 dark:bg-green-400 text-white hover:bg-green-600 dark:hover:bg-green-500"
                 }`}
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 15px rgba(99, 102, 241, 0.5)",
+                  boxShadow: "0 0 10px rgba(99, 102, 241, 0.4)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={
@@ -529,6 +536,9 @@ export default function FilterBar({
                 </svg>
                 <span className="hidden sm:inline">
                   {isMapView ? "Ro‘yxat" : "Xarita"}
+                </span>
+                <span className="sm:hidden">
+                  {isMapView ? "Jadval" : "Xarita"}
                 </span>
               </motion.button>
             </motion.div>
